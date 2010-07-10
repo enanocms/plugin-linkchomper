@@ -431,7 +431,8 @@ function page_Admin_Linkchomper()
           $before_html = strval(trim($_POST['link_before_html']));
           $after_html  = strval(trim($_POST['link_after_html']));
           
-          if ( !$session->get_permissions('php_in_pages') )
+          $perms = $session->fetch_page_acl('LinkChomper', 'System');
+          if ( !$perms->get_permissions('html_in_pages') )
           {
             // Not allowed to embed PHP and Javascript
             $before_html = sanitize_html($before_html);
@@ -509,7 +510,8 @@ function page_Admin_Linkchomper()
           $before_html = strval(trim($_POST['link_before_html']));
           $after_html  = strval(trim($_POST['link_after_html']));
           
-          if ( !$session->get_permissions('php_in_pages') )
+          $perms = $session->fetch_page_acl('LinkChomper', 'System');
+          if ( !$perms->get_permissions('php_in_pages') )
           {
             // Not allowed to embed PHP and Javascript
             $before_html = sanitize_html($before_html);
@@ -761,15 +763,6 @@ class LinkchomperFormGenerator
       }
     }
     $this->uuid = $uuid;
-  }
-  
-  /**
-   * PHP 4 constructor
-   */
-  
-  function LinkchomperFormGenerator()
-  {
-    $this->__construct();
   }
   
   /**
